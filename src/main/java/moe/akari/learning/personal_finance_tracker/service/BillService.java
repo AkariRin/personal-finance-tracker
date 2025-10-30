@@ -49,7 +49,7 @@ public class BillService {
                 billTime = LocalDateTime.parse(request.getTime(),
                     DateTimeFormatter.ISO_LOCAL_DATE_TIME);
             } catch (DateTimeParseException e) {
-                throw new RuntimeException("时间格式错误，请使用 ISO 8601 格式（例如：2024-01-01T12:00:00）");
+                throw new RuntimeException("Time format error, please use ISO 8601 format (e.g.: 2024-01-01T12:00:00)");
             }
         } else {
             billTime = LocalDateTime.now();
@@ -73,7 +73,7 @@ public class BillService {
             );
 
             if (rows != 1) {
-                throw new RuntimeException("插入账单失败，影响行数：" + rows);
+                throw new RuntimeException("Failed to insert bill, affected rows: " + rows);
             }
 
             // 直接构造响应对象返回，不创建 Bill 实体
@@ -88,7 +88,7 @@ public class BillService {
                     request.getNote()
             );
         } catch (Exception e) {
-            throw new RuntimeException("创建账单失败: " + e.getMessage(), e);
+            throw new RuntimeException("Failed to create bill: " + e.getMessage(), e);
         }
     }
 
@@ -114,7 +114,7 @@ public class BillService {
      */
     public List<BillResponse> getUserBillsByType(String username, String type) {
         if (!type.equals("in") && !type.equals("out")) {
-            throw new RuntimeException("账单类型必须是 in 或 out");
+            throw new RuntimeException("Bill type must be in or out");
         }
         List<Bill> bills = billRepository.findByUserUsernameAndTypeOrderByTimeDesc(username, type);
         return bills.stream()

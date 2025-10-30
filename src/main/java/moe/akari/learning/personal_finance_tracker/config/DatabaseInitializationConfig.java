@@ -10,8 +10,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 /**
- * Database initialization configuration
- * Automatically checks and initializes the database after the application starts.
+ * 数据库初始化配置
+ * 应用程序启动后自动检查并初始化数据库
  */
 @Component
 public class DatabaseInitializationConfig implements ApplicationListener<ApplicationReadyEvent> {

@@ -9,30 +9,30 @@ import java.math.BigDecimal;
  */
 public class CreateBillRequest {
 
-    @NotBlank(message = "账单类型不能为空")
-    @Pattern(regexp = "^(in|out)$", message = "账单类型必须是 in 或 out")
+    @NotBlank(message = "The bill type cannot be empty")
+    @Pattern(regexp = "^(in|out)$", message = "The bill type must be either income or expense.")
     private String type;
 
-    @NotNull(message = "金额不能为空")
-    @DecimalMin(value = "0.01", message = "金额必须大于0")
-    @Digits(integer = 8, fraction = 2, message = "金额最多8位整数和2位小数")
+    @NotNull(message = "The amount cannot be empty")
+    @DecimalMin(value = "0.01", message = "The amount must be greater than 0")
+    @Digits(integer = 8, fraction = 2, message = "Amount up to 8 digits in integer part and 2 digits in decimal part")
     private BigDecimal amount;
 
-    @NotBlank(message = "支付方式不能为空")
+    @NotBlank(message = "Payment method cannot be empty")
     @Pattern(regexp = "^(cash|wx|alipay|card|btc|paypal|apple)$",
-             message = "支付方式必须是 cash, wx, alipay, card, btc, paypal, apple 之一")
+             message = "The payment method must be one of Cash, Weixin, Alipay, Card, BTC, PayPal, or Apple Pay.")
     private String method;
 
-    @NotBlank(message = "交易对方不能为空")
-    @Size(max = 100, message = "交易对方名称不能超过100个字符")
+    @NotBlank(message = "The counterparty cannot be empty")
+    @Size(max = 100, message = "The counterparty name cannot exceed 100 characters.")
     private String counterparty;
 
-    @Size(max = 50, message = "分类不能超过50个字符")
+    @Size(max = 50, message = "Categories cannot exceed 50 characters")
     private String category;
 
     private String time; // ISO 8601 格式的时间字符串，可选
 
-    @Size(max = 500, message = "备注不能超过500个字符")
+    @Size(max = 500, message = "Notes cannot exceed 500 characters")
     private String note;
 
     public CreateBillRequest() {

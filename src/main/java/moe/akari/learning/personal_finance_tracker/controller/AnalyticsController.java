@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * 提供账单统计分析接口
  */
 @RestController
-@RequestMapping("/analytics")
+@RequestMapping("/api/analytics")
 public class AnalyticsController {
 
     private final AnalyticsService analyticsService;
@@ -41,7 +41,7 @@ public class AnalyticsController {
             String username = authService.getUsernameFromToken(token);
 
             AnalyticsResponse analytics = analyticsService.getAnalytics(username, months);
-            return ResponseEntity.ok(ApiResponse.success("获取统计数据成功", analytics));
+            return ResponseEntity.ok(ApiResponse.success("Successfully retrieved statistical data", analytics));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest()
                     .body(ApiResponse.error(e.getMessage()));

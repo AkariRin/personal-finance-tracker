@@ -8,12 +8,12 @@ import jakarta.validation.constraints.Size;
  */
 public class LoginRequest {
 
-    @NotBlank(message = "用户名不能为空")
-    @Size(min = 2, max = 16, message = "用户名长度必须在2-16个字符之间")
+    @NotBlank(message = "Username cannot be empty")
+    @Size(min = 2, max = 16, message = "The username must be between 2 and 16 characters long.")
     private String username;
 
-    @NotBlank(message = "密码不能为空")
-    @Size(min = 4, max = 32, message = "密码长度必须在4-32个字符之间")
+    @NotBlank(message = "Password cannot be empty")
+    @Size(min = 4, max = 32, message = "The password must be between 4 and 32 characters long.")
     private String password;
 
     public LoginRequest() {

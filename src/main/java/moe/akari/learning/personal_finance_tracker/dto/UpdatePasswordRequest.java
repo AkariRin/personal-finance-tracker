@@ -8,11 +8,11 @@ import jakarta.validation.constraints.Size;
  */
 public class UpdatePasswordRequest {
 
-    @NotBlank(message = "当前密码不能为空")
+    @NotBlank(message = "The current password cannot be empty")
     private String currentPassword;
 
-    @NotBlank(message = "新密码不能为空")
-    @Size(min = 4, max = 32, message = "新密码长度必须在4-32个字符之间")
+    @NotBlank(message = "The new password cannot be empty")
+    @Size(min = 4, max = 32, message = "The new password must be between 4 and 32 characters long.")
     private String newPassword;
 
     public UpdatePasswordRequest() {

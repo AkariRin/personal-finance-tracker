@@ -8,16 +8,16 @@ import jakarta.validation.constraints.Size;
  */
 public class RegisterRequest {
 
-    @NotBlank(message = "用户名不能为空")
-    @Size(min = 2, max = 16, message = "用户名长度必须在2-16个字符之间")
+    @NotBlank(message = "Username cannot be empty")
+    @Size(min = 2, max = 16, message = "The username must be between 2 and 16 characters long.")
     private String username;
 
-    @NotBlank(message = "显示名称不能为空")
-    @Size(min = 1, max = 50, message = "显示名称长度必须在1-50个字符之间")
+    @NotBlank(message = "The name cannot be empty")
+    @Size(min = 1, max = 50, message = "The name must be between 1 and 50 characters long.")
     private String name;
 
-    @NotBlank(message = "密码不能为空")
-    @Size(min = 4, max = 32, message = "密码长度必须在4-32个字符之间")
+    @NotBlank(message = "Password cannot be empty")
+    @Size(min = 4, max = 32, message = "The password must be between 4 and 32 characters long.")
     private String password;
 
     public RegisterRequest() {

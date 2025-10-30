@@ -35,7 +35,7 @@ public class UserService {
     @Transactional
     public String updateName(String username, UpdateNameRequest request) {
         User user = userRepository.findById(username)
-                .orElseThrow(() -> new RuntimeException("用户不存在"));
+                .orElseThrow(() -> new RuntimeException("User does not exist"));
 
         user.setName(request.getName());
         userRepository.save(user);
@@ -52,11 +52,11 @@ public class UserService {
     @Transactional
     public void updatePassword(String username, UpdatePasswordRequest request) {
         User user = userRepository.findById(username)
-                .orElseThrow(() -> new RuntimeException("用户不存在"));
+                .orElseThrow(() -> new RuntimeException("User does not exist"));
 
         // 验证当前密码
         if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword())) {
-            throw new RuntimeException("当前密码错误");
+            throw new RuntimeException("Current password is incorrect");
         }
 
         // 使用bcrypt加密新密码

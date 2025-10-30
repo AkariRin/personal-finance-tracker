@@ -8,8 +8,8 @@ import jakarta.validation.constraints.Size;
  */
 public class UpdateNameRequest {
 
-    @NotBlank(message = "名称不能为空")
-    @Size(min = 1, max = 50, message = "名称长度必须在1-50个字符之间")
+    @NotBlank(message = "The name cannot be empty")
+    @Size(min = 1, max = 50, message = "The name must be between 1 and 50 characters long.")
     private String name;
 
     public UpdateNameRequest() {

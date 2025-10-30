@@ -12,11 +12,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 用户控制器
- * 处理用户信息管理相关接口，需要JWT认证
+ * User Controller
+ * Handle user information management interfaces, requires JWT authentication
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
     private final UserService userService;
@@ -28,12 +28,12 @@ public class UserController {
     }
 
     /**
-     * 更新用户名称（name字段）
+     * Update user name (name field)
      *
-     * @param authorization Authorization请求头
-     * @param request 更新名称请求
-     * @param bindingResult 验证结果
-     * @return 更新后的名称
+     * @param authorization Authorization header
+     * @param request update name request
+     * @param bindingResult validation result
+     * @return updated name
      */
     @PutMapping("/name")
     public ResponseEntity<ApiResponse<String>> updateName(
@@ -44,18 +44,18 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getFieldError() != null
                     ? bindingResult.getFieldError().getDefaultMessage()
-                    : "请求参数错误";
+                    : "Invalid request parameters";
             return ResponseEntity.badRequest()
                     .body(ApiResponse.error(errorMessage));
         }
 
         try {
-            // 从Token获取用户名
+            // Get username from Token
             String token = authorization.substring(7);
             String username = authService.getUsernameFromToken(token);
 
             String newName = userService.updateName(username, request);
-            return ResponseEntity.ok(ApiResponse.success("名称更新成功", newName));
+            return ResponseEntity.ok(ApiResponse.success("Name updated successfully", newName));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest()
                     .body(ApiResponse.error(e.getMessage()));
@@ -63,12 +63,12 @@ public class UserController {
     }
 
     /**
-     * 更新用户密码
+     * Update user password
      *
-     * @param authorization Authorization请求头
-     * @param request 更新密码请求
-     * @param bindingResult 验证结果
-     * @return 操作结果
+     * @param authorization Authorization header
+     * @param request update password request
+     * @param bindingResult validation result
+     * @return operation result
      */
     @PutMapping("/password")
     public ResponseEntity<ApiResponse<Void>> updatePassword(
@@ -79,18 +79,18 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getFieldError() != null
                     ? bindingResult.getFieldError().getDefaultMessage()
-                    : "请求参数错误";
+                    : "Invalid request parameters";
             return ResponseEntity.badRequest()
                     .body(ApiResponse.error(errorMessage));
         }
 
         try {
-            // 从Token获取用户名
+            // Get username from Token
             String token = authorization.substring(7);
             String username = authService.getUsernameFromToken(token);
 
             userService.updatePassword(username, request);
-            return ResponseEntity.ok(ApiResponse.success("密码更新成功", null));
+            return ResponseEntity.ok(ApiResponse.success("Password updated successfully", null));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest()
                     .body(ApiResponse.error(e.getMessage()));
@@ -114,7 +114,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getFieldError() != null
                     ? bindingResult.getFieldError().getDefaultMessage()
-                    : "请求参数错误";
+                    : "Invalid request parameters";
             return ResponseEntity.badRequest()
                     .body(ApiResponse.error(errorMessage));
         }
@@ -125,7 +125,7 @@ public class UserController {
             String username = authService.getUsernameFromToken(token);
 
             userService.deleteAccount(username, request.getUsername());
-            return ResponseEntity.ok(ApiResponse.success("账号删除成功", null));
+            return ResponseEntity.ok(ApiResponse.success("Account deleted", null));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest()
                     .body(ApiResponse.error(e.getMessage()));

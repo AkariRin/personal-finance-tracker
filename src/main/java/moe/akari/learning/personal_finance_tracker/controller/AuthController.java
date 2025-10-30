@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * 认证控制器
  */
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
 
     private final AuthService authService;
@@ -39,14 +39,14 @@ public class AuthController {
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getFieldError() != null
                     ? bindingResult.getFieldError().getDefaultMessage()
-                    : "请求参数错误";
+                    : "Invalid request parameters";
             return ResponseEntity.badRequest()
                     .body(ApiResponse.error(errorMessage));
         }
 
         try {
             AuthResponse response = authService.register(request);
-            return ResponseEntity.ok(ApiResponse.success("注册成功", response));
+            return ResponseEntity.ok(ApiResponse.success("User registration successful", response));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest()
                     .body(ApiResponse.error(e.getMessage()));
@@ -68,14 +68,14 @@ public class AuthController {
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getFieldError() != null
                     ? bindingResult.getFieldError().getDefaultMessage()
-                    : "请求参数错误";
+                    : "Invalid request parameters";
             return ResponseEntity.badRequest()
                     .body(ApiResponse.error(errorMessage));
         }
 
         try {
             AuthResponse response = authService.login(request);
-            return ResponseEntity.ok(ApiResponse.success("登录成功", response));
+            return ResponseEntity.ok(ApiResponse.success("User login successful", response));
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(ApiResponse.error(e.getMessage()));

@@ -17,7 +17,7 @@ import java.util.List;
  * 处理账单相关接口，需要JWT认证
  */
 @RestController
-@RequestMapping("/bills")
+@RequestMapping("/api/bills")
 public class BillController {
 
     private final BillService billService;
@@ -45,7 +45,7 @@ public class BillController {
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getFieldError() != null
                     ? bindingResult.getFieldError().getDefaultMessage()
-                    : "请求参数错误";
+                    : "Invalid request parameters";
             return ResponseEntity.badRequest()
                     .body(ApiResponse.error(errorMessage));
         }
@@ -56,7 +56,7 @@ public class BillController {
             String username = authService.getUsernameFromToken(token);
 
             BillResponse billResponse = billService.createBill(username, request);
-            return ResponseEntity.ok(ApiResponse.success("账单创建成功", billResponse));
+            return ResponseEntity.ok(ApiResponse.success("Bill created successfully", billResponse));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest()
                     .body(ApiResponse.error(e.getMessage()));
@@ -79,7 +79,7 @@ public class BillController {
             String username = authService.getUsernameFromToken(token);
 
             List<BillResponse> bills = billService.getUserBills(username);
-            return ResponseEntity.ok(ApiResponse.success("获取账单列表成功", bills));
+            return ResponseEntity.ok(ApiResponse.success("Successfully retrieved the bill list", bills));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest()
                     .body(ApiResponse.error(e.getMessage()));
@@ -104,7 +104,7 @@ public class BillController {
             String username = authService.getUsernameFromToken(token);
 
             List<BillResponse> bills = billService.getUserBillsByType(username, type);
-            return ResponseEntity.ok(ApiResponse.success("获取账单列表成功", bills));
+            return ResponseEntity.ok(ApiResponse.success("Successfully retrieved the bill list", bills));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest()
                     .body(ApiResponse.error(e.getMessage()));

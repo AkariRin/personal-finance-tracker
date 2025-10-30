@@ -28,7 +28,7 @@
             </v-col>
             <v-col cols="6">
               <div class="text-center">
-                <div class="text-caption text-grey-darken-2 mb-1">Today's spending</div>
+                <div class="text-caption text-grey-darken-2 mb-1">Today's expense</div>
                 <div class="text-h6 font-weight-medium text-grey-darken-3">¥{{ formattedTodayExpense }}</div>
               </div>
             </v-col>
@@ -74,8 +74,8 @@
               class="px-4"
             >
               <template v-slot:prepend>
-                <v-avatar :color="getCategoryColor(transaction.category)" class="mr-3">
-                  <v-icon :icon="getCategoryIcon(transaction.category)" color="white"></v-icon>
+                <v-avatar color="primary" class="mr-3">
+                  <v-icon icon="mdi-cash-multiple" color="white"></v-icon>
                 </v-avatar>
               </template>
               <v-list-item-title class="font-weight-medium">
@@ -154,42 +154,6 @@ const totalExpense = computed(() => {
 })
 
 const totalBillingsCount = computed(() => allBills.value.length)
-
-const getCategoryIcon = (category) => {
-  const iconMap = {
-    '餐饮美食': 'mdi-silverware-fork-knife',
-    '购物': 'mdi-cart',
-    '交通': 'mdi-car',
-    '娱乐': 'mdi-movie',
-    '医疗': 'mdi-medical-bag',
-    '教育': 'mdi-school',
-    '住房': 'mdi-home',
-    '通讯': 'mdi-phone',
-    '其他': 'mdi-dots-horizontal',
-    '工资': 'mdi-cash',
-    '奖金': 'mdi-gift',
-    '投资': 'mdi-chart-line',
-  }
-  return iconMap[category] || 'mdi-cash-multiple'
-}
-
-const getCategoryColor = (category) => {
-  const colorMap = {
-    '餐饮美食': 'orange',
-    '购物': 'pink',
-    '交通': 'blue',
-    '娱乐': 'purple',
-    '医疗': 'red',
-    '教育': 'green',
-    '住房': 'brown',
-    '通讯': 'cyan',
-    '其他': 'grey',
-    '工资': 'green',
-    '奖金': 'amber',
-    '投资': 'indigo',
-  }
-  return colorMap[category] || 'primary'
-}
 
 const formatDate = (dateString) => {
   if (!dateString) return ''

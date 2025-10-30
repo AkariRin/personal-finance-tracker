@@ -19,7 +19,7 @@ import java.util.Optional;
  * 提供仪表板页面所需的统计数据
  */
 @RestController
-@RequestMapping("/dashboard")
+@RequestMapping("/api/dashboard")
 public class DashboardController {
 
     private final BillService billService;
@@ -51,7 +51,7 @@ public class DashboardController {
             Optional<User> userOpt = userRepository.findById(username);
             if (userOpt.isEmpty()) {
                 return ResponseEntity.badRequest()
-                        .body(ApiResponse.error("用户不存在"));
+                        .body(ApiResponse.error("User does not exist"));
             }
             User user = userOpt.get();
             BigDecimal totalAssets = user.getBalance();
@@ -73,7 +73,7 @@ public class DashboardController {
                     recentBills
             );
 
-            return ResponseEntity.ok(ApiResponse.success("获取仪表板数据成功", response));
+            return ResponseEntity.ok(ApiResponse.success("Successfully retrieved dashboard data", response));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest()
                     .body(ApiResponse.error(e.getMessage()));

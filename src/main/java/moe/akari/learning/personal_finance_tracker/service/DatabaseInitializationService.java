@@ -21,30 +21,30 @@ public class DatabaseInitializationService {
     private JdbcTemplate jdbcTemplate;
 
     /**
-     * Verify that the database table structure meets expectations
+     * 验证数据库表结构是否符合预期
      */
     public boolean validateDatabaseSchema() {
         try {
-            // Check if required tables exist
+            // 检查必需的表是否存在
             List<String> tables = jdbcTemplate.queryForList(
                 "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES " +
                 "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_TYPE = 'BASE TABLE'",
                 String.class
             );
 
-            // Check required tables
+            // 检查必需的表
             if (!tables.contains("user") || !tables.contains("bill")) {
                 logger.warn("Required tables are missing. Found tables: {}", tables);
                 return false;
             }
 
-            // Verify the user table structure
+            // 验证user表结构
             if (!validateUserTable()) {
                 logger.warn("User table structure is invalid");
                 return false;
             }
 
-            // Verify the bill table structure
+            // 验证bill表结构
             if (!validateBillTable()) {
                 logger.warn("Bill table structure is invalid");
                 return false;
@@ -59,7 +59,7 @@ public class DatabaseInitializationService {
     }
 
     /**
-     * Verify the user table structure
+     * 验证user表结构
      */
     private boolean validateUserTable() {
         try {
@@ -73,7 +73,7 @@ public class DatabaseInitializationService {
                 return false;
             }
 
-            // Checking for required columns
+            // 检查必需的列
             boolean hasUsername = false;
             boolean hasName = false;
             boolean hasPassword = false;
@@ -105,7 +105,7 @@ public class DatabaseInitializationService {
     }
 
     /**
-     * Verify the bill table structure
+     * 验证bill表结构
      */
     private boolean validateBillTable() {
         try {
@@ -119,7 +119,7 @@ public class DatabaseInitializationService {
                 return false;
             }
 
-            // Checking for required columns
+            // 检查必需的列
             boolean hasUuid = false;
             boolean hasAmount = false;
             boolean hasType = false;
@@ -164,32 +164,32 @@ public class DatabaseInitializationService {
     }
 
     /**
-     * Clear and reinitialize the database
+     * 清空并重新初始化数据库
      */
     public void reinitializeDatabase() {
         try {
             logger.info("Starting database reinitialization...");
 
-            // Disable foreign key checks
+            // 禁用外键约束检查
             jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 0");
 
-            // Get all tables
+            // 获取所有表
             List<String> tables = jdbcTemplate.queryForList(
                 "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES " +
                 "WHERE TABLE_SCHEMA = DATABASE() AND TABLE_TYPE = 'BASE TABLE'",
                 String.class
             );
 
-            // Delete all tables
+            // 删除所有表
             for (String table : tables) {
                 logger.info("Dropping table: {}", table);
                 jdbcTemplate.execute("DROP TABLE IF EXISTS " + table);
             }
 
-            // Enable foreign key checks
+            // 启用外键约束检查
             jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 1");
 
-            // Execute the database.sql script
+            // 执行数据库初始化脚本
             executeSqlScript();
 
             logger.info("Database reinitialization completed successfully");
@@ -200,14 +200,14 @@ public class DatabaseInitializationService {
     }
 
     /**
-     * Execute the database.sql script
+     * 执行database.sql脚本
      */
     private void executeSqlScript() {
         try {
             ClassPathResource resource = new ClassPathResource("database.sql");
             String sql = StreamUtils.copyToString(resource.getInputStream(), StandardCharsets.UTF_8);
 
-            // Split SQL statements
+            // 分割SQL语句
             String[] statements = sql.split(";");
 
             for (String statement : statements) {
@@ -226,7 +226,7 @@ public class DatabaseInitializationService {
     }
 
     /**
-     * Check and initialize the database at application startup
+     * 在应用程序启动时检查并初始化数据库
      */
     public void checkAndInitializeDatabase() {
         logger.info("Checking database schema...");
@@ -235,7 +235,7 @@ public class DatabaseInitializationService {
             logger.warn("Database schema validation failed. Reinitializing database...");
             reinitializeDatabase();
 
-            // Verify again
+            // 再次验证
             if (validateDatabaseSchema()) {
                 logger.info("Database reinitialization successful and validated");
             } else {

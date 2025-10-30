@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
  */
 public class DeleteAccountRequest {
 
-    @NotBlank(message = "用户名确认不能为空")
+    @NotBlank(message = "Username confirmation cannot be empty")
     private String username;
 
     public DeleteAccountRequest() {

@@ -38,7 +38,7 @@ public class AuthService {
     public AuthResponse register(RegisterRequest request) {
         // 检查用户名是否已存在
         if (userRepository.existsById(request.getUsername())) {
-            throw new RuntimeException("用户名已存在");
+            throw new RuntimeException("Username already exists");
         }
 
         // 创建新用户，使用bcrypt加密密码
@@ -64,11 +64,11 @@ public class AuthService {
     public AuthResponse login(LoginRequest request) {
         // 查找用户
         User user = userRepository.findById(request.getUsername())
-                .orElseThrow(() -> new RuntimeException("用户名或密码错误"));
+                .orElseThrow(() -> new RuntimeException("Username or password incorrect"));
 
         // 使用bcrypt的matches方法验证明文密码
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException("用户名或密码错误");
+            throw new RuntimeException("Username or password incorrect");
         }
 
         // 生成Token（只使用username）
