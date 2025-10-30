@@ -11,6 +11,7 @@ services:
       DB_URL: "mysql://mysql:3306/pft"
       DB_USERNAME: "root"
       DB_PASSWORD: "1234"
+      JWT_SECRET: "YOUR_JWT_SECRET"
   mysql:
     image: mysql:latest
     restart: always
