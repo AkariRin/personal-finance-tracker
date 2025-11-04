@@ -8,7 +8,7 @@
         <version>3.5.7</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>moe.akari.learning</groupId>
+    <groupId>dev.rbq</groupId>
     <artifactId>personal-finance-tracker</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>personal-finance-tracker</name>
