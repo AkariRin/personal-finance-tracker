@@ -4,7 +4,7 @@ import dev.rbq.personal_finance_tracker.dto.AnalyticsResponse;
 import dev.rbq.personal_finance_tracker.dto.CategoryStatsResponse;
 import dev.rbq.personal_finance_tracker.dto.MonthlyStatsResponse;
 import dev.rbq.personal_finance_tracker.dto.PaymentMethodStatsResponse;
-import moe.akari.learning.personal_finance_tracker.dto.*;
+import dev.rbq.personal_finance_tracker.dto.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
