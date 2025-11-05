@@ -7,10 +7,7 @@
 ### 后端
 - Spring Boot 3.5.7
 - Spring Security
-- Spring Data JDBC
-- Spring Data Redis
 - MySQL
-- Redis
 
 ### 前端
 - Vue 3
