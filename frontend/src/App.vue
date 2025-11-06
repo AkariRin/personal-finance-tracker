@@ -31,7 +31,7 @@
           icon="mdi-logout"
           variant="text"
           @click="logout"
-          title="登出"
+          title="Logout"
         ></v-btn>
       </v-app-bar>
     <v-main class="glass-effect">
@@ -118,12 +118,12 @@ const confirmLogout = () => {
   try {
     user.logout()
     logoutDialog.value = false
-    snackbarText.value = '已成功登出'
+    snackbarText.value = 'Successfully logged out'
     snackbar.value = true
     router.push({ name: 'login' })
   } catch (error) {
-    console.error('登出失败:', error)
-    snackbarText.value = '登出时发生错误'
+    console.error('Logout failed:', error)
+    snackbarText.value = 'An error occured while logging out'
     snackbar.value = true
   }
 }
